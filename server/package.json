@@ -1,0 +1,16 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "RESTful API for Google Keep Application using Nodejs, Express and PostgreSQL",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "author": "Gaddam Anjali",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
