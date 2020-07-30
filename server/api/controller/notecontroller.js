@@ -1,4 +1,4 @@
-import ResponseHandler from "./responseHandler";
+import ResponseHandler from "../util/responseHandler";
 import {getNotes} from "../service/noteservice";
 
 const responseHandler = new ResponseHandler();
