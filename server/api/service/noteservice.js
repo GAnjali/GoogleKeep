@@ -9,4 +9,13 @@ const getNotes = async () => {
     }
 };
 
-export {getNotes};
+const getNoteById = async (id) => {
+    try {
+        const response = await db.query('SELECT * FROM notes where id =' + id);
+        return response.rows;
+    } catch (e) {
+        return e;
+    }
+};
+
+export {getNotes, getNoteById};
