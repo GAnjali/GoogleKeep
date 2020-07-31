@@ -48,4 +48,13 @@ describe('Test the File endpoints', () => {
                 expect(res.body.message).toEqual("Please input a valid numeric value");
         });
     });
+
+    describe("Testing the addNote API", () => {
+        it("should get response with 201 when called addNote with note", async () => {
+            const newNote = {title:'title', content:'content'};
+            const res = await request(app).post('/notes').send(newNote);
+            expect(res.status).toEqual(201);
+            expect(res.body.message).toEqual("Note created!");
+        });
+    });
 });
