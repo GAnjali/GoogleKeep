@@ -1,5 +1,5 @@
 import ResponseHandler from "../util/responseHandler";
-import {getNotes, getNoteById} from "../service/noteservice";
+import {getNotes, getNoteById, insertNote} from "../service/noteservice";
 
 const responseHandler = new ResponseHandler();
 const getAllNotes = async (request, response) => {
@@ -36,4 +36,17 @@ const getOneNote = async (request, response) => {
     }
 };
 
-export {getAllNotes, getOneNote};
+const addNote = async (request, response) => {
+    const note = {title: request.body.title, content: request.body.content};
+    try {
+        await insertNote(note).then(() => {
+            responseHandler.setSuccess(201, "Note created!", note);
+        });
+        return responseHandler.send(response);
+    } catch (error) {
+        responseHandler.setError(400, error);
+        return responseHandler.send(response);
+    }
+};
+
+export {getAllNotes, getOneNote, addNote};

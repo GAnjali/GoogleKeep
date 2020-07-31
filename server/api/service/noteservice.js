@@ -18,4 +18,12 @@ const getNoteById = async (id) => {
     }
 };
 
-export {getNotes, getNoteById};
+const insertNote = async (note) => {
+    try {
+       await db.query(`insert into notes(title,content) values('${note.title}','${note.content}')`);
+    } catch (e) {
+        return e;
+    }
+};
+
+export {getNotes, getNoteById, insertNote};
