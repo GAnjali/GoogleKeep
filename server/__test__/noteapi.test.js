@@ -81,4 +81,27 @@ describe('Test the File endpoints', () => {
             expect(res.body.message).toEqual("Please input a valid numeric value");
         });
     });
+
+    describe("Testing the deleteNote API", () => {
+        it("should get response with 200 when called deletedNote with note id", async () => {
+            const newNote = {id: 1, title: 'title', content: 'content'};
+            await pool.query(`INSERT INTO notes(id,title,content) VALUES('${newNote.id}','${newNote.title}','${newNote.content}')`).then(async () => {
+                const res = await request(app).delete('/notes/1');
+                expect(res.statusCode).toEqual(200);
+                expect(res.body.message).toEqual("Note deleted!");
+            });
+        });
+
+        it("should get response with 404 when called deleteNote with id which does not exist in Database", async () => {
+            const res = await request(app).delete('/notes/1');
+            expect(res.statusCode).toEqual(404);
+            expect(res.body.message).toEqual("Cannot find Note with id: 1");
+        });
+
+        it("should get response with 404 when called deleteNote with invalid note id as param", async () => {
+            const res = await request(app).put('/notes/A');
+            expect(res.statusCode).toEqual(400);
+            expect(res.body.message).toEqual("Please input a valid numeric value");
+        });
+    });
 });
