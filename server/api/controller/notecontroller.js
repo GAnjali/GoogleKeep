@@ -1,5 +1,5 @@
 import ResponseHandler from "../util/responseHandler";
-import {getNotes, getNoteById, insertNote, update} from "../service/noteservice";
+import {getNotes, getNoteById, insertNote, update, deleteOne} from "../service/noteservice";
 
 const responseHandler = new ResponseHandler();
 const getAllNotes = async (request, response) => {
@@ -68,4 +68,23 @@ const updateNote = async (request, response) => {
     }
 };
 
-export {getAllNotes, getOneNote, addNote, updateNote};
+const deleteNote = async (request, response) => {
+    const note = {id: request.params.id, title: request.body.title, content: request.body.content};
+    if (!Number(note.id)) {
+        responseHandler.setError(400, "Please input a valid numeric value");
+        return responseHandler.send(response);
+    }
+    try {
+        const deletedNote = await deleteOne(note);
+        if (deletedNote == null)
+            responseHandler.setSuccess(404, "Cannot find Note with id: " + note.id);
+        else
+            responseHandler.setSuccess(200, "Note deleted!");
+        return responseHandler.send(response);
+    } catch (error) {
+        responseHandler.setError(400, error);
+        return responseHandler.send(response);
+    }
+};
+
+export {getAllNotes, getOneNote, addNote, updateNote, deleteNote};

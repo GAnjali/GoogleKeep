@@ -1,5 +1,5 @@
 import express from 'express';
-import {getAllNotes, getOneNote, addNote, updateNote} from './api/controller/notecontroller'
+import {getAllNotes, getOneNote, addNote, updateNote, deleteNote} from './api/controller/notecontroller'
 
 const app = express();
 app.use(express.json());
@@ -9,6 +9,7 @@ app.get('/notes', getAllNotes);
 app.get('/notes/:id', getOneNote);
 app.post('/notes', addNote);
 app.put('/notes/:id', updateNote);
+app.delete('/notes/:id', deleteNote);
 
 app.listen(3000);
 

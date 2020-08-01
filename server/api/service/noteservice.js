@@ -40,4 +40,18 @@ const update = async (note) => {
     }
 };
 
-export {getNotes, getNoteById, insertNote, update};
+const deleteOne = async (note) => {
+    try {
+        const noteToDelete = await db.query(`select * from notes where id = '${note.id}'`).then((response) => {
+            return response.rows;
+        });
+        if (noteToDelete.length == 0)
+            return null;
+        await db.query(`DELETE from notes WHERE id = '${note.id}'`);
+        return note;
+    } catch (e) {
+        return e;
+    }
+};
+
+export {getNotes, getNoteById, insertNote, update, deleteOne};
