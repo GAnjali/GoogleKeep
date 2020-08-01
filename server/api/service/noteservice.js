@@ -20,10 +20,24 @@ const getNoteById = async (id) => {
 
 const insertNote = async (note) => {
     try {
-       await db.query(`insert into notes(title,content) values('${note.title}','${note.content}')`);
+        await db.query(`insert into notes(title,content) values('${note.title}','${note.content}')`);
     } catch (e) {
         return e;
     }
 };
 
-export {getNotes, getNoteById, insertNote};
+const update = async (note) => {
+    try {
+        const noteToUpdate = await db.query(`select * from notes where id = '${note.id}'`).then((response) => {
+            return response.rows;
+        });
+        if (noteToUpdate.length == 0)
+            return null;
+        await db.query(`UPDATE notes SET title = '${note.title}',content = '${note.content}' WHERE id = 3`);
+        return note;
+    } catch (e) {
+        return e;
+    }
+};
+
+export {getNotes, getNoteById, insertNote, update};
