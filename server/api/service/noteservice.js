@@ -1,6 +1,6 @@
 import db from '../../database';
 
-const getNotes = async () => {
+const getAll = async () => {
     try {
         const response = await db.query('SELECT * FROM notes');
         return response.rows;
@@ -9,7 +9,7 @@ const getNotes = async () => {
     }
 };
 
-const getNoteById = async (id) => {
+const getOne = async (id) => {
     try {
         const response = await db.query('SELECT * FROM notes where id =' + id);
         return response.rows;
@@ -18,7 +18,7 @@ const getNoteById = async (id) => {
     }
 };
 
-const insertNote = async (note) => {
+const insert = async (note) => {
     try {
         await db.query(`insert into notes(title,content) values('${note.title}','${note.content}')`);
     } catch (e) {
@@ -54,4 +54,4 @@ const deleteOne = async (note) => {
     }
 };
 
-export {getNotes, getNoteById, insertNote, update, deleteOne};
+export {getAll, getOne, insert, update, deleteOne};
