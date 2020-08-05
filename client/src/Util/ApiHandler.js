@@ -8,4 +8,12 @@ const getNotes = async () => {
     }
 };
 
-export default getNotes;
+const addNote = async (note) => {
+    try {
+        return await axios.post("http://localhost:3000/notes", note);
+    } catch (err) {
+        return err;
+    }
+};
+
+export {getNotes, addNote};
