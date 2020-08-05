@@ -24,4 +24,12 @@ const updateNote = async (note) => {
     }
 };
 
-export {getNotes, addNote, updateNote};
+const deleteNote = async (noteId) => {
+    try {
+        return await axios.delete("http://localhost:3000/notes/" + noteId);
+    } catch (err) {
+        return err;
+    }
+};
+
+export {getNotes, addNote, updateNote, deleteNote};

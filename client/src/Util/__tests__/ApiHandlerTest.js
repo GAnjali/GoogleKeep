@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import {getNotes, addNote, updateNote} from "../ApiHandler";
+import {getNotes, addNote, updateNote, deleteNote} from "../ApiHandler";
 
 describe('Home API Service', () => {
     let mock;
@@ -66,6 +66,29 @@ describe('Home API Service', () => {
             mock.onPut(`http://localhost:3000/notes`, note).reply(404);
             await updateNote(note).then((response) => {
                 expect(response.response.status).toEqual(404);
+            });
+        });
+    });
+
+    describe('deleteNote', () => {
+        it('should return response of status 200 when deleteNote is called', async () => {
+            mock.onDelete(`http://localhost:3000/notes/1`).reply(200);
+            await deleteNote(1).then((response) => {
+                expect(response.status).toEqual(200);
+            });
+        });
+
+        it('should return response of status 440 when deleteNote is called without note id', async () => {
+            mock.onDelete(`http://localhost:3000/notes`).reply(404);
+            await deleteNote().then((response) => {
+                expect(response.response.status).toEqual(404);
+            });
+        });
+
+        it('should return response of status 400 when updateNote is called deleteNote', async () => {
+            mock.onDelete(`http://localhost:3000/notes/1`).reply(400);
+            await deleteNote(1).then((response) => {
+                expect(response.response.status).toEqual(400);
             });
         });
     })
