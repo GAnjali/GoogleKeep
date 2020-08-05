@@ -16,4 +16,12 @@ const addNote = async (note) => {
     }
 };
 
-export {getNotes, addNote};
+const updateNote = async (note) => {
+    try {
+        return await axios.put("http://localhost:3000/notes/" + note.id, note);
+    } catch (err) {
+        return err;
+    }
+};
+
+export {getNotes, addNote, updateNote};

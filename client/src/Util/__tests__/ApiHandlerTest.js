@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import {getNotes, addNote} from "../ApiHandler";
+import {getNotes, addNote, updateNote} from "../ApiHandler";
 
 describe('Home API Service', () => {
     let mock;
@@ -39,6 +39,33 @@ describe('Home API Service', () => {
             mock.onPost(`http://localhost:3000/notes`, note).reply(400);
             await addNote(note).then((response) => {
                 expect(response.response.status).toEqual(400);
+            });
+        });
+    });
+
+    describe('updateNote', () => {
+        it('should return response of status 200 with note created when updateNote is called', async () => {
+            const note = {id: 1, title: "title", content: "content"};
+            mock.onPut(`http://localhost:3000/notes/` + note.id, note).reply(200, note);
+            await updateNote(note).then((response) => {
+                expect(response.status).toEqual(200);
+                expect(response.data).toEqual(note);
+            });
+        });
+
+        it('should return response of status 400 when updateNote is called', async () => {
+            const note = {id: 1, title: "title", content: "content"};
+            mock.onPut(`http://localhost:3000/notes` + note.id, note).reply(400);
+            await updateNote(note).then((response) => {
+                expect(response.response.status).toEqual(400);
+            });
+        });
+
+        it('should return response of status 400 when updateNote is called without note id', async () => {
+            const note = {id: 1, title: "title", content: "content"};
+            mock.onPut(`http://localhost:3000/notes`, note).reply(404);
+            await updateNote(note).then((response) => {
+                expect(response.response.status).toEqual(404);
             });
         });
     })
