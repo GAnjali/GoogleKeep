@@ -1,6 +1,7 @@
 import ResponseHandler from "../util/responseHandler";
 import {getAll, getOne, insert, update, deleteOne} from "../service/noteservice";
 import {
+    INVALID_NOTE,
     INVALID_NOTE_ID, NOTE_CREATED, NOTE_DELETED,
     NOTE_NOT_FOUND_WITH_ID,
     NOTE_RETRIEVED, NOTE_UPDATED,
@@ -45,6 +46,10 @@ const getOneNote = async (request, response) => {
 };
 
 const addNote = async (request, response) => {
+    if ((request.body.title == null || request.body.title == undefined) && (request.body.content == null || request.body.content == undefined)) {
+        responseHandler.setError(400, INVALID_NOTE);
+        return responseHandler.send(response);
+    }
     const note = {title: request.body.title, content: request.body.content};
     try {
         await insert(note).then(() => {

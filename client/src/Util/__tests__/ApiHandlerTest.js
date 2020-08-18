@@ -34,10 +34,17 @@ describe('Home API Service', () => {
             });
         });
 
-        it('should return response of status 400 with note created when addNote is called', async () => {
+        it('should return response of status 400', async () => {
             const note = {title: "title", content: "content"};
             mock.onPost(`http://localhost:3000/notes`, note).reply(400);
             await addNote(note).then((response) => {
+                expect(response.response.status).toEqual(400);
+            });
+        });
+
+        it('should return response of status 400 with note created when addNote is called', async () => {
+            mock.onPost(`http://localhost:3000/notes`).reply(400);
+            await addNote({}).then((response) => {
                 expect(response.response.status).toEqual(400);
             });
         });

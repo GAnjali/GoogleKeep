@@ -54,6 +54,12 @@ describe('Test the File endpoints', () => {
             expect(res.status).toEqual(201);
             expect(res.body.message).toEqual("Note created!");
         });
+
+        it("should get response with 400 when called addNote with out input note", async () => {
+            const res = await request(app).post('/notes').send({});
+            expect(res.status).toEqual(400);
+            expect(res.body.message).toEqual("Invalid input note to create");
+        });
     });
 
     describe("Testing the updateNote API", () => {

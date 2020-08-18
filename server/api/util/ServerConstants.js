@@ -9,6 +9,7 @@ export const NOTES_RETRIEVED = "Notes retrieved!";
 export const NOTES_NOT_FOUND = "Notes not found!";
 export const INVALID_NOTE_ID = "Invalid note ID!";
 export const NOTE_RETRIEVED = "Note retrieved!";
+export const INVALID_NOTE = "Invalid input note to create";
 export const NOTE_NOT_FOUND_WITH_ID = "Note not found with id: %d";
 export const NOTE_CREATED = "Note created!";
 export const NOTE_UPDATED = "Note updated!";
