@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import MainSection from "./MainSection";
 import Header from "./Header";
-import styles from "../styles/styles.css";
 
 class Dashboard extends Component {
     constructor() {
@@ -13,6 +12,7 @@ class Dashboard extends Component {
         return (
             <>
                 <Header/>
+                <MainSection/>
             </>
         )
     }
