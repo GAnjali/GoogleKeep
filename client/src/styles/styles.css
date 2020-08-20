@@ -1,0 +1,18 @@
+.header {
+    height: 8vh;
+    opacity: 0.7;
+}
+
+.keepIcon {
+    width: 40px;
+    height: 40px;
+}
+
+h2 {
+    color: #2f2f30;
+    text-align: center;
+    opacity: 1;
+    font-family: 'Product Sans', Arial, sans-serif;
+    font-size: 22px;
+    display: inline;
+}
